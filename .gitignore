@@ -1,41 +1,18 @@
-# Compiled Lua sources
-luac.out
+-- Script to change player walk speed
 
-# luarocks build files
-*.src.rock
-*.zip
-*.tar.gz
+-- The new walk speed value you want to set
+local newWalkSpeed = 50
 
-# Object files
-*.o
-*.os
-*.ko
-*.obj
-*.elf
+-- Function to change walk speed of a player
+local function onPlayerAdded(player)
+    -- Wait for the character to load
+    player.CharacterAdded:Connect(function(character)
+        -- Wait for the Humanoid to be added to the character
+        local humanoid = character:WaitForChild("Humanoid")
+        -- Set the walk speed to the new value
+        humanoid.WalkSpeed = newWalkSpeed
+    end)
+end
 
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-*.def
-*.exp
-
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
+-- Connect the function to the PlayerAdded event
+game.Players.PlayerAdded:Connect(onPlayerAdded)
